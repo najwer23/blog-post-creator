@@ -46,7 +46,14 @@ export const Home = () => {
             Sections
           </TextBox>
 
-          <Button height="40px" width="100px" backgroundColor="orange" onClick={addSectionTitle}>
+          <Button
+            height="40px"
+            width="100px"
+            backgroundColor="orange"
+            onClick={addSectionTitle}
+            backgroundColorDisabled="darkgrey"
+            disabled={postJson.sections.filter((x) => x.name == 'post-title').length > 0}
+          >
             <TextBox mobileSize={18} desktopSize={18}>
               Post Title
             </TextBox>

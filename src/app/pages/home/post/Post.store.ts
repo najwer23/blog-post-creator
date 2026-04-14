@@ -19,10 +19,25 @@ type PostStore = {
   updateSectionDataAndTitle: (index: number, name: 'post-title', data: PostSectionData<'post-title'>) => void;
 };
 
+const updateSectionByIndex = <K extends PostSection['name']>(
+  state: PostStore,
+  index: number,
+  name: K,
+  data: PostSectionData<K>,
+): PostStore => ({
+  ...state,
+  postJson: {
+    ...state.postJson,
+    sections: state.postJson.sections.map((section, i) =>
+      i === index && section.name === name ? ({ ...section, data } as PostSection) : section,
+    ),
+  },
+});
+
 const usePostStoreBase = create<PostStore>()((set) => ({
   postJson: {
-    title: 'post title',
-    id: '1',
+    title: '',
+    id: '',
     sections: [],
   },
   sectionId: 0,
@@ -81,7 +96,7 @@ const usePostStoreBase = create<PostStore>()((set) => ({
           {
             name: 'post-code',
             data: {
-              code: 'const users = [\n  { name: \"Anna\", age: 32 },\n  { name: \"Bob\", age: 28 },\n  { name: \"Cara\", age: 40 },\n];\n\nconst byAge = users.sort((a, b) => a.age - b.age);\n',
+              code: 'const users = [\n  { name: "Anna", age: 32 },\n  { name: "Bob", age: 28 },\n  { name: "Cara", age: 40 },\n];\n\nconst byAge = users.sort((a, b) => a.age - b.age);\n',
             },
           },
         ],
@@ -118,26 +133,17 @@ const usePostStoreBase = create<PostStore>()((set) => ({
         ),
       },
     })),
-  updateSectionData: <K extends PostSection['name']>(index: number, name: K, data: PostSectionData<K>) =>
-    set((state) => ({
-      postJson: {
-        ...state.postJson,
-        sections: state.postJson.sections.map((section, i) =>
-          i === index && section.name === name ? ({ ...section, data } as PostSection) : section,
-        ),
-      },
-    })),
-  updateSectionDataAndTitle: (index: number, name: 'post-title', data: PostSectionData<'post-title'>) =>
-    set((state) => ({
-      postJson: {
-        ...state.postJson,
-        id: data.title.match(/#(\d+)/)?.[1] ?? '',
-        title: data.title,
-        sections: state.postJson.sections.map((section, i) =>
-          i === index && section.name === name ? ({ ...section, data } as PostSection) : section,
-        ),
-      },
-    })),
+  updateSectionData: (index, name, data) => set((state) => updateSectionByIndex(state, index, name, data)),
+  updateSectionDataAndTitle: (index, name, data) =>
+    set((state) => {
+      return {
+        postJson: {
+          ...updateSectionByIndex(state, index, name, data).postJson,
+          id: data.title.match(/#(\d+)/)?.[1] ?? '',
+          title: data.title,
+        },
+      };
+    }),
 }));
 
 export const usePostStore = createSelectors(usePostStoreBase);
