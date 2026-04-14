@@ -5,7 +5,7 @@ import { SyntaxHighlight } from '@app/syntaxhighlight/SyntaxHighlight';
 import { Button } from 'najwer23morsels/lib/button';
 import { Grid } from 'najwer23morsels/lib/grid';
 import { TextBox } from 'najwer23morsels/lib/textbox';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePostStore } from './post/Post.store';
 import { BlogDialogEdit } from './post/PostDialogEdit';
 import { PostRenderSection } from './post/PostRenderSection';
@@ -24,6 +24,10 @@ export const Home = () => {
   const openSectionIdDialog = usePostStore.use.openSectionIdDialog();
   const addSectionCode = usePostStore.use.addSectionCode();
 
+  const dragItemIndex = useRef<number | null>(null);
+  const dragOverIndex = useRef<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
   useEffect(() => {
     const stored = storageItemGet(localStorage, STORAGE_KEY);
     if (stored) {
@@ -35,6 +39,38 @@ export const Home = () => {
     if (!postJson) return;
     storageItemSet(localStorage, STORAGE_KEY, postJson, 999999);
   }, [postJson]);
+
+  const moveSection = (from: number, to: number) => {
+    if (from === to) return;
+
+    const nextSections = [...postJson.sections];
+    const [moved] = nextSections.splice(from, 1);
+    nextSections.splice(to, 0, moved);
+
+    setPostJson((prev) => ({
+      ...prev,
+      sections: nextSections,
+    }));
+  };
+
+  const handleDragStart = (index: number) => {
+    dragItemIndex.current = index;
+    setIsDragging(true);
+  };
+
+  const handleDragEnter = (index: number) => {
+    dragOverIndex.current = index;
+  };
+
+  const handleDragEnd = () => {
+    if (dragItemIndex.current !== null && dragOverIndex.current !== null) {
+      moveSection(dragItemIndex.current, dragOverIndex.current);
+    }
+
+    dragItemIndex.current = null;
+    dragOverIndex.current = null;
+    setIsDragging(false);
+  };
 
   return (
     <Grid layout="container" widthMax="1600px" padding="40px 20px 40px 20px" margin="auto">
@@ -99,6 +135,15 @@ export const Home = () => {
                 widthMax={'1190px'}
                 gap={{ col: '10px', row: '20px' }}
                 margin={0}
+                draggable
+                onDragStart={() => handleDragStart(index)}
+                onDragEnter={() => handleDragEnter(index)}
+                onDragEnd={handleDragEnd}
+                onDragOver={(e) => e.preventDefault()}
+                style={{
+                  opacity: isDragging && dragItemIndex.current === index ? 0.4 : 1,
+                  cursor: 'move',
+                }}
               >
                 <Grid layout="container" widthMin="200px" widthMax={'200px'} margin={0}>
                   <TextBox mobileSize={15} desktopSize={15} margin={'0 0 5px'}>
@@ -132,7 +177,7 @@ export const Home = () => {
         </Grid>
       </Grid>
 
-      <hr></hr>
+      <hr />
 
       <Grid layout="container" widthMax="1600px" widthMin={'min(500px, calc(100vw - 40px))'} margin="40px 0 50px 0">
         <TextBox mobileSize={20} desktopSize={20} margin="0 0 40px">
