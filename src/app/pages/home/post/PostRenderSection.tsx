@@ -1,4 +1,5 @@
 import { SectionP } from '../sections/SectionP';
+import { SectionSubheading } from '../sections/SectionSubheading';
 import { SectionTitle } from '../sections/SectionTitle';
 import type { PostSection } from './Post.types';
 
@@ -16,8 +17,8 @@ export const PostRenderSection: React.FC<{
     // case 'post-code':
     //   return <SectionCode section={section} />;
 
-    // case 'post-subheading':
-    //   return <SectionSubheading section={section}></SectionSubheading>;
+    case 'post-subheading':
+      return <SectionSubheading section={section}></SectionSubheading>;
 
     // case 'group':
     //   return (

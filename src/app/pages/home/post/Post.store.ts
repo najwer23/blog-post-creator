@@ -10,6 +10,7 @@ type PostStore = {
   openSectionIdDialog: (id: number) => void;
   closeSectionIdDialog: () => void;
   addSectionTitle: () => void;
+  addSectionSubheading: () => void;
   addSectionP: () => void;
   removeSection: (index: number) => void;
   updateSection: (updatedSection: PostJson['sections'][number]) => void;
@@ -61,6 +62,21 @@ const usePostStoreBase = create<PostStore>()((set) => ({
           ...state.postJson.sections,
           {
             name: 'post-p',
+            data: {
+              text: 'Example',
+            },
+          },
+        ],
+      },
+    })),
+  addSectionSubheading: () =>
+    set((state) => ({
+      postJson: {
+        ...state.postJson,
+        sections: [
+          ...state.postJson.sections,
+          {
+            name: 'post-subheading',
             data: {
               text: 'Example',
             },

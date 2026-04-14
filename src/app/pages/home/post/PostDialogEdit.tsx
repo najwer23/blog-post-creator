@@ -30,15 +30,8 @@ export const BlogDialogEdit: React.FC<{}> = () => {
         break;
       }
 
+      case 'post-subheading':
       case 'post-p': {
-        const data = {
-          text: form.text.value,
-        };
-        updateSectionData(sectionId, section.name, data);
-        break;
-      }
-
-      case 'post-subheading': {
         const data = {
           text: form.text.value,
         };
@@ -113,6 +106,19 @@ export const BlogDialogEdit: React.FC<{}> = () => {
               </>
             )}
 
+            {section?.name === 'post-subheading' && (
+              <>
+                <Input
+                  kind="textarea"
+                  label="Subheading"
+                  name="text"
+                  defaultValue={section?.data.text}
+                  validatorOptions={[{ type: 'empty' }]}
+                  placeholder="Place for your subheading"
+                />
+              </>
+            )}
+
             <Grid
               layout="flex"
               widthMax={'100%'}
@@ -126,7 +132,7 @@ export const BlogDialogEdit: React.FC<{}> = () => {
                 height={'40px'}
                 width={'80px'}
                 padding={0}
-                backgroundColor="green"
+                backgroundColor="#4BB543"
                 backgroundColorDisabled="grey"
               >
                 <TextBox tag="span" desktopSize={16} mobileSize={16} fontWeight={400} color="white">

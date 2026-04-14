@@ -17,6 +17,7 @@ export const Home = () => {
   const postJson = usePostStore.use.postJson();
   const setPostJson = usePostStore.use.setPostJson();
   const addSectionTitle = usePostStore.use.addSectionTitle();
+  const addSectionSubheading = usePostStore.use.addSectionSubheading();
   const addSectionP = usePostStore.use.addSectionP();
   const removeSection = usePostStore.use.removeSection();
   const openSectionIdDialog = usePostStore.use.openSectionIdDialog();
@@ -53,6 +54,18 @@ export const Home = () => {
               Paragpraph
             </TextBox>
           </Button>
+
+          <Button
+            height="40px"
+            width="120px"
+            backgroundColor="orange"
+            onClick={addSectionSubheading}
+            margin={'20px 0 0'}
+          >
+            <TextBox mobileSize={18} desktopSize={18}>
+              Subheading
+            </TextBox>
+          </Button>
         </Grid>
 
         <Grid layout="container" widthMax="1000px" widthMin="1000px" margin={0}>
@@ -69,28 +82,37 @@ export const Home = () => {
                 alignItems="flex-start"
                 gap={{ col: '10px', row: '20px' }}
               >
-                <Grid
-                  layout="flex"
-                  justifyContent="flex-start"
-                  widthMax="200px"
-                  widthMin="200px"
-                  margin={0}
-                  gap={{ col: '10px', row: '20px' }}
-                >
-                  {index}
-
-                  <Button width="50px" height="30px" backgroundColor="green" onClick={() => openSectionIdDialog(index)}>
+                <div>
+                  <Grid layout="container">
                     <TextBox mobileSize={15} desktopSize={15}>
-                      Edit
+                      {index} {section.name}
                     </TextBox>
-                  </Button>
-
-                  <Button width="50px" height="30px" backgroundColor="red" onClick={() => removeSection(index)}>
-                    <TextBox mobileSize={15} desktopSize={15}>
-                      Del
-                    </TextBox>
-                  </Button>
-                </Grid>
+                    <Grid
+                      layout="flex"
+                      justifyContent="flex-start"
+                      widthMax="200px"
+                      widthMin="200px"
+                      margin={0}
+                      gap={{ col: '10px', row: '20px' }}
+                    >
+                      <Button
+                        width="50px"
+                        height="30px"
+                        backgroundColor="#4BB543"
+                        onClick={() => openSectionIdDialog(index)}
+                      >
+                        <TextBox mobileSize={15} desktopSize={15} color="white">
+                          Edit
+                        </TextBox>
+                      </Button>
+                      <Button width="50px" height="30px" backgroundColor="#ff3333" onClick={() => removeSection(index)}>
+                        <TextBox mobileSize={15} desktopSize={15} color="white">
+                          Del
+                        </TextBox>
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </div>
 
                 <div>
                   <PostRenderSection section={section} id={1} />
