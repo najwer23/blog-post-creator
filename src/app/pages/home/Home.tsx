@@ -94,22 +94,22 @@ export const Home = () => {
                 margin={0}
               >
                 <Grid layout="container" widthMin="200px" widthMax={'200px'} margin={0}>
-                  <TextBox mobileSize={15} desktopSize={15}>
+                  <TextBox mobileSize={15} desktopSize={15} margin={'0 0 5px'}>
                     {index} {section.name}
                   </TextBox>
                   <Grid layout="flex" justifyContent="flex-start" margin={0} gap={{ col: '10px', row: '20px' }}>
                     <Button
-                      width="50px"
-                      height="30px"
+                      width="40px"
+                      height="25px"
                       backgroundColor="#4BB543"
                       onClick={() => openSectionIdDialog(index)}
                     >
-                      <TextBox mobileSize={15} desktopSize={15} color="white">
+                      <TextBox mobileSize={12} desktopSize={12} color="white">
                         Edit
                       </TextBox>
                     </Button>
-                    <Button width="50px" height="30px" backgroundColor="#ff3333" onClick={() => removeSection(index)}>
-                      <TextBox mobileSize={15} desktopSize={15} color="white">
+                    <Button width="40px" height="25px" backgroundColor="#ff3333" onClick={() => removeSection(index)}>
+                      <TextBox mobileSize={12} desktopSize={12} color="white">
                         Del
                       </TextBox>
                     </Button>
