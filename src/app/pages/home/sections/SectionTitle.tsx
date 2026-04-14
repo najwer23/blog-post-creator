@@ -1,6 +1,6 @@
 import { TextBox } from 'najwer23morsels/lib/textbox';
 import { useLocation, useNavigate } from 'react-router-dom';
-import type { BlogPostSection } from '../Blog.types';
+import type { BlogPostSection } from '../post/Post.types';
 
 export const SectionTitle: React.FC<{
   id: number;

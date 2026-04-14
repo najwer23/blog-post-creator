@@ -1,9 +1,9 @@
-import type { BlogPostSection } from './Blog.types';
-import { SectionTitle } from './sections/SectionTitle';
+import { SectionTitle } from '../sections/SectionTitle';
+import type { PostSection } from './Post.types';
 
-export const BlogPostRenderSection: React.FC<{
+export const PostRenderSection: React.FC<{
   id: number;
-  section: BlogPostSection;
+  section: PostSection;
 }> = ({ section, id }) => {
   switch (section.name) {
     case 'post-title':
