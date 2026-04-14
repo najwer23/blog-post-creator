@@ -76,7 +76,7 @@ export const Home = () => {
           </Button>
         </Grid>
 
-        <Grid layout="container" widthMax="1100px" widthMin={'min(1100px, calc(100vw - 40px)'} margin={0}>
+        <Grid layout="container" widthMax="1100px" widthMin={'min(1100px, calc(100vw - 40px))'} margin={0}>
           <TextBox mobileSize={20} desktopSize={20} margin="0 0 40px">
             Post
           </TextBox>
@@ -93,7 +93,7 @@ export const Home = () => {
                 gap={{ col: '10px', row: '20px' }}
                 margin={0}
               >
-                <Grid layout="container" widthMin="180px" widthMax={'180px'} margin={0}>
+                <Grid layout="container" widthMin="200px" widthMax={'200px'} margin={0}>
                   <TextBox mobileSize={15} desktopSize={15}>
                     {index} {section.name}
                   </TextBox>
