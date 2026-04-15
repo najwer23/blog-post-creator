@@ -1,3 +1,4 @@
+import { SyntaxHighlight } from '@app/syntaxhighlight/SyntaxHighlight';
 import { Button } from 'najwer23morsels/lib/button';
 import { Dialog } from 'najwer23morsels/lib/dialog';
 import { Form } from 'najwer23morsels/lib/form';
@@ -43,19 +44,19 @@ export const PostDialogImport: React.FC<{}> = () => {
           errorMsg={undefined}
           successMsg={undefined}
         >
-          <Input
-            kind="input"
-            label="Example"
-            name="based"
-            disabled
-            defaultValue={JSON.stringify({
-              title: '',
-              id: '',
-              sections: [],
-            })}
-            validatorOptions={[{ type: 'empty' }, { type: 'json' }]}
-            placeholder="Place for your JSON"
-          />
+          <Grid layout={'container'} margin={'30px 0 30px 0'} minHeight="0">
+            <SyntaxHighlight>
+              {JSON.stringify(
+                {
+                  title: '',
+                  id: '',
+                  sections: [],
+                },
+                null,
+                2,
+              )}
+            </SyntaxHighlight>
+          </Grid>
 
           <Input
             kind="textarea"
