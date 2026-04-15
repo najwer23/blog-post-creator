@@ -93,7 +93,7 @@ export const Home = () => {
             backgroundColor="orange"
             onClick={addSectionTitle}
             backgroundColorDisabled="darkgrey"
-            disabled={postJson.sections.filter((x) => x.name == 'post-title').length > 0}
+            disabled={postJson?.sections?.filter((x) => x.name == 'post-title').length > 0}
           >
             <TextBox mobileSize={18} desktopSize={18}>
               Post Title
@@ -130,7 +130,7 @@ export const Home = () => {
           </TextBox>
 
           <Grid layout="container" widthMax={'1190px'} margin={0}>
-            {postJson.sections.map((section, index) => (
+            {postJson?.sections?.map((section, index) => (
               <Grid
                 key={index}
                 layout="flex"

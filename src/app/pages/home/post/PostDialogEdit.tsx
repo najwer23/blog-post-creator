@@ -16,7 +16,7 @@ export const PostDialogEdit: React.FC<{}> = () => {
   const updateSectionDataAndTitle = usePostStore.use.updateSectionDataAndTitle();
   const postJson = usePostStore.use.postJson();
 
-  const section = postJson.sections[sectionId];
+  const section = postJson?.sections?.[sectionId];
 
   const handleOnSubmit = (form: FormType) => {
     if (Object.values(form).some(({ error }) => error)) return;

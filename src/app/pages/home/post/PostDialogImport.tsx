@@ -10,6 +10,7 @@ import type { PostJson } from './Post.types';
 
 export const PostDialogImport: React.FC<{}> = () => {
   const setPostJson = usePostStore.use.setPostJson();
+  const postJson = usePostStore.use.postJson();
   const importDialogOpen = usePostStore.use.importDialogOpen();
   const closeImportDialog = usePostStore.use.closeImportDialog();
 
@@ -37,9 +38,24 @@ export const PostDialogImport: React.FC<{}> = () => {
           successMsg={undefined}
         >
           <Input
+            kind="input"
+            label="Example"
+            name="based"
+            disabled
+            defaultValue={JSON.stringify({
+              title: '',
+              id: '',
+              sections: [],
+            })}
+            validatorOptions={[{ type: 'empty' }, { type: 'json' }]}
+            placeholder="Place for your JSON"
+          />
+
+          <Input
             kind="textarea"
             label="JSON"
             name="json"
+            defaultValue={JSON.stringify(postJson)}
             validatorOptions={[{ type: 'empty' }, { type: 'json' }]}
             placeholder="Place for your JSON"
           />
