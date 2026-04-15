@@ -1,5 +1,4 @@
 import { useDocumentTitle } from '@app/hooks/useDocumentTitle';
-import { storageItemGet } from '@app/storage/storageItemGet';
 import { storageItemSet } from '@app/storage/storageItemSet';
 import { SyntaxHighlight } from '@app/syntaxhighlight/SyntaxHighlight';
 import { Button } from 'najwer23morsels/lib/button';
@@ -27,13 +26,6 @@ export const Home = () => {
   const dragItemIndex = useRef<number | null>(null);
   const dragOverIndex = useRef<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-
-  useEffect(() => {
-    const stored = storageItemGet(localStorage, STORAGE_KEY);
-    if (stored) {
-      setPostJson(() => stored);
-    }
-  }, [setPostJson]);
 
   useEffect(() => {
     if (!postJson) return;
@@ -71,6 +63,8 @@ export const Home = () => {
     dragOverIndex.current = null;
     setIsDragging(false);
   };
+
+  console.log(postJson.sections.filter((x) => x.name == 'post-title').length > 0);
 
   return (
     <Grid layout="container" widthMax="1600px" padding="40px 20px 40px 20px" margin="auto">

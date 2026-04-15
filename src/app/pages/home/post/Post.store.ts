@@ -1,3 +1,4 @@
+import { storageItemGet } from '@app/storage/storageItemGet';
 import { createSelectors } from '@app/store/createSelectors';
 import { create } from 'zustand';
 import type { PostJson, PostSection, PostSectionData } from './Post.types';
@@ -34,12 +35,20 @@ const updateSectionByIndex = <K extends PostSection['name']>(
   },
 });
 
+const loadInitialPostJson = () => {
+  const STORAGE_KEY = 'blog-post-creator';
+
+  return (
+    storageItemGet(localStorage, STORAGE_KEY) ?? {
+      title: '',
+      id: '',
+      sections: [],
+    }
+  );
+};
+
 const usePostStoreBase = create<PostStore>()((set) => ({
-  postJson: {
-    title: '',
-    id: '',
-    sections: [],
-  },
+  postJson: loadInitialPostJson(),
   sectionId: 0,
   sectionIdDialogOpen: false,
   setPostJson: (updater) =>
