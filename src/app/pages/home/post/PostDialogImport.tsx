@@ -5,6 +5,7 @@ import type { FormType } from 'najwer23morsels/lib/form/Form';
 import { Grid } from 'najwer23morsels/lib/grid';
 import { Input } from 'najwer23morsels/lib/input';
 import { TextBox } from 'najwer23morsels/lib/textbox';
+import { useEffect, useState } from 'react';
 import { usePostStore } from './Post.store';
 import type { PostJson } from './Post.types';
 
@@ -14,8 +15,13 @@ export const PostDialogImport: React.FC<{}> = () => {
   const importDialogOpen = usePostStore.use.importDialogOpen();
   const closeImportDialog = usePostStore.use.closeImportDialog();
 
+  const [jsonText, setJsonText] = useState(JSON.stringify(postJson, null, 2));
+
+  useEffect(() => {
+    setJsonText(JSON.stringify(postJson, null, 2));
+  }, [postJson]);
+
   const handleOnSubmit = (form: FormType) => {
-    console.log(9888);
     if (Object.values(form).some(({ error }) => error)) return;
 
     setPostJson(() => JSON.parse(form.json.value) as PostJson);
@@ -55,9 +61,10 @@ export const PostDialogImport: React.FC<{}> = () => {
             kind="textarea"
             label="JSON"
             name="json"
-            defaultValue={JSON.stringify(postJson)}
+            value={jsonText}
             validatorOptions={[{ type: 'empty' }, { type: 'json' }]}
             placeholder="Place for your JSON"
+            onChange={(e) => setJsonText(e.target.value)}
           />
 
           <Grid
