@@ -2048,7 +2048,7 @@ __metadata:
     "@types/react-dom": "npm:^19.2.3"
     "@vitejs/plugin-react": "npm:^6.0.1"
     gh-pages: "npm:^6.3.0"
-    najwer23morsels: "npm:^0.22.21"
+    najwer23morsels: "npm:^0.22.22"
     react: "npm:^19.2.5"
     react-dom: "npm:^19.2.5"
     react-router-dom: "npm:^7.14.1"
@@ -4140,13 +4140,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"najwer23morsels@npm:^0.22.21":
-  version: 0.22.21
-  resolution: "najwer23morsels@npm:0.22.21"
+"najwer23morsels@npm:^0.22.22":
+  version: 0.22.22
+  resolution: "najwer23morsels@npm:0.22.22"
   peerDependencies:
     react: ^19.2.4
     react-dom: ^19.2.4
-  checksum: 10c0/c288763e393c08c2cc5f1ec13c219a60daf01dd3f631fa322af58fe9c289ea09758ea01740b48956f209b45e5cea6642be4ccc0e90da3eb1453f477e72ab4dda
+  checksum: 10c0/89fcdfe447d7a22693da559b4ecbad417710001976edcbc549f703d8a59a1fc97ba7fc7f50a96442d9b5bad8afb25c4ec4607bab1be776b15f1793f331f1d3cc
   languageName: node
   linkType: hard
 
