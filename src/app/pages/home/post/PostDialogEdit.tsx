@@ -61,6 +61,7 @@ export const PostDialogEdit: React.FC<{}> = () => {
           </TextBox>
 
           <Form
+            key={`${sectionId}-${section?.name}`}
             onSubmit={handleOnSubmit}
             isError={false}
             isPending={false}
