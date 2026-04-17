@@ -19,8 +19,25 @@ type PostStore = {
   addSectionP: () => void;
   removeSection: (index: number) => void;
   updateSection: (updatedSection: PostJson['sections'][number]) => void;
-  updateSectionData: <K extends PostSection['name']>(index: number, name: K, data: PostSectionData<K>) => void;
-  updateSectionDataAndTitle: (index: number, name: 'post-title', data: PostSectionData<'post-title'>) => void;
+  updateSectionData: <K extends PostSection['name']>(
+    index: number,
+    name: K,
+    data: PostSectionData<K>,
+    newIndex: string,
+  ) => void;
+  updateSectionDataAndTitle: (
+    index: number,
+    name: 'post-title',
+    data: PostSectionData<'post-title'>,
+    newIndex: string,
+  ) => void;
+};
+
+const moveItem = <T>(items: T[], from: number, to: number) => {
+  const next = [...items];
+  const [item] = next.splice(from, 1);
+  next.splice(to, 0, item);
+  return next;
 };
 
 const updateSectionByIndex = <K extends PostSection['name']>(
@@ -28,15 +45,23 @@ const updateSectionByIndex = <K extends PostSection['name']>(
   index: number,
   name: K,
   data: PostSectionData<K>,
-): PostStore => ({
-  ...state,
-  postJson: {
-    ...state.postJson,
-    sections: state.postJson.sections.map((section, i) =>
-      i === index && section.name === name ? ({ ...section, data } as PostSection) : section,
-    ),
-  },
-});
+  newIndex: string,
+): PostStore => {
+  const sections = state.postJson.sections.map((section, i) =>
+    i === index && section.name === name ? ({ ...section, data } as PostSection) : section,
+  );
+
+  const nextIndex = Number(newIndex);
+  const movedSections = nextIndex !== index ? moveItem(sections, index, nextIndex) : sections;
+
+  return {
+    ...state,
+    postJson: {
+      ...state.postJson,
+      sections: movedSections,
+    },
+  };
+};
 
 const loadInitialPostJson = () => {
   const STORAGE_KEY = 'blog-post-creator';
@@ -154,12 +179,13 @@ const usePostStoreBase = create<PostStore>()((set) => ({
         ),
       },
     })),
-  updateSectionData: (index, name, data) => set((state) => updateSectionByIndex(state, index, name, data)),
-  updateSectionDataAndTitle: (index, name, data) =>
+  updateSectionData: (index, name, data, newIndex) =>
+    set((state) => updateSectionByIndex(state, index, name, data, newIndex)),
+  updateSectionDataAndTitle: (index, name, data, newIndex) =>
     set((state) => {
       return {
         postJson: {
-          ...updateSectionByIndex(state, index, name, data).postJson,
+          ...updateSectionByIndex(state, index, name, data, newIndex).postJson,
           id: data.title.match(/#(\d+)/)?.[1] ?? '',
           title: data.title,
         },

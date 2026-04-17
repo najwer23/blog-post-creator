@@ -27,7 +27,7 @@ export const PostDialogEdit: React.FC<{}> = () => {
           title: form.title.value,
           date: form.date.value.split('-').reverse().join('/'),
         };
-        updateSectionDataAndTitle(sectionId, section.name, data);
+        updateSectionDataAndTitle(sectionId, section.name, data, form.newIndex.value);
         break;
       }
 
@@ -36,7 +36,7 @@ export const PostDialogEdit: React.FC<{}> = () => {
         const data = {
           text: form.text.value,
         };
-        updateSectionData(sectionId, section.name, data);
+        updateSectionData(sectionId, section.name, data, form.newIndex.value);
         break;
       }
 
@@ -44,7 +44,7 @@ export const PostDialogEdit: React.FC<{}> = () => {
         const data = {
           code: form.code.value,
         };
-        updateSectionData(sectionId, section.name, data);
+        updateSectionData(sectionId, section.name, data, form.newIndex.value);
         break;
       }
     }
@@ -69,6 +69,18 @@ export const PostDialogEdit: React.FC<{}> = () => {
             errorMsg={undefined}
             successMsg={undefined}
           >
+            <Input
+              label="New Index"
+              type="text"
+              name="newIndex"
+              defaultValue={String(sectionId)}
+              validatorOptions={[
+                { type: 'empty' },
+                { type: 'numberInRange', options: { min: 0, max: postJson.sections.length - 1 } },
+              ]}
+              placeholder="New Index"
+            />
+
             {section?.name === 'post-title' && (
               <>
                 <Input

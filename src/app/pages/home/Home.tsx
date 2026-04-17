@@ -91,7 +91,10 @@ export const Home = () => {
             height="40px"
             width="100px"
             backgroundColor="orange"
-            onClick={addSectionTitle}
+            onClick={() => {
+              addSectionTitle();
+              openSectionIdDialog(postJson.sections.length);
+            }}
             backgroundColorDisabled="darkgrey"
             disabled={postJson?.sections?.filter((x) => x.name == 'post-title').length > 0}
           >
@@ -99,13 +102,31 @@ export const Home = () => {
               Post Title
             </TextBox>
           </Button>
-          <Button height="40px" width="120px" backgroundColor="orange" onClick={addSectionP} margin={'20px 0 0'}>
+          <Button
+            height="40px"
+            width="120px"
+            backgroundColor="orange"
+            onClick={() => {
+              addSectionP();
+              openSectionIdDialog(postJson.sections.length);
+            }}
+            margin={'20px 0 0'}
+          >
             <TextBox mobileSize={18} desktopSize={18}>
               Paragpraph
             </TextBox>
           </Button>
 
-          <Button height="40px" width="60px" backgroundColor="orange" onClick={addSectionCode} margin={'20px 0 0'}>
+          <Button
+            height="40px"
+            width="60px"
+            backgroundColor="orange"
+            onClick={() => {
+              addSectionCode();
+              openSectionIdDialog(postJson.sections.length);
+            }}
+            margin={'20px 0 0'}
+          >
             <TextBox mobileSize={18} desktopSize={18}>
               Code
             </TextBox>
@@ -115,7 +136,10 @@ export const Home = () => {
             height="40px"
             width="120px"
             backgroundColor="orange"
-            onClick={addSectionSubheading}
+            onClick={() => {
+              addSectionSubheading();
+              openSectionIdDialog(postJson.sections.length);
+            }}
             margin={'20px 0 0'}
           >
             <TextBox mobileSize={18} desktopSize={18}>
